@@ -13,45 +13,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     html,body{height:100%;}
-    body{margin:0;background:#0E0E10;color:#F5F1EA;font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;}
+    body{margin:0;font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;}
     .mono{font-family:'JetBrains Mono',monospace}
   </style>
 </head>
 <body>
 
-<!-- ==========================================================
-Сайт Тимура Абитова — версия для GitHub Pages.
-Файл должен называться index.html и лежать в корне репозитория.
-ФОТО: загрузите свои фотографии в папку images/ со следующими именами:
-  headshot.jpg              — главное фото (визитка)
-  photo-01.jpg ... photo-12.jpg — галерея (сколько есть; лишние рамки скроются сами)
-Настройки: блок TA_CONFIG ниже.
-========================================================== -->
-
 <div id="ta-site">
 <script>
-/* ================= ✏️ КОНФИГ ================= */
+/* ================= КОНФИГ ================= */
 window.TA_CONFIG = {
   name: "ТИМУР АБИТОВ",
   tagline: "АКТЁР · 13.10.1987 · МОСКВА",
   email: "timur.abitov13@gmail.com",
   phoneAgent: "Агент: Телеграм @agentkudinova · agentkudinova@mail.ru",
-
-  // Актёрская визитка на Rutube (встраивается в плеер на сайте)
   showreelRutubeID: "b421ff87975078251c0caa346dc083fe",
-
-  // Шоурил на Яндекс.Диске (откроется по кнопке в новой вкладке)
   showreelYandexURL: "https://disk.yandex.ru/i/PN_pvcHpA499pQ",
-
-  // ID канала Rutube (запасной вариант)
   rutubeChannelID: "14942278",
-
-  // Formspree ID (пусто = форма откроет почтовый клиент)
-  formspreeID: "",
-
+  formspreeID: "myegkygw",
   counterNamespace: "timur-abitov-site-2025",
   showCounter: true,
-
   socials: [
     { label: "Агентство (Telegram)",  url: "https://t.me/agentkudinova" },
     { label: "Rutube-канал", url: "https://rutube.ru/channel/14942278/" }
@@ -60,25 +41,47 @@ window.TA_CONFIG = {
 </script>
 
 <style>
-:root{ --bg:#0E0E10; --paper:#F5F1EA; --red:#E63B2E; --brass:#C9A96A; --grey:#8a8a92; --card:#17171b; --line:#2a2a30; }
-#ta-site.light{ --bg:#F5F1EA; --paper:#0E0E10; --card:#ffffff; --line:#ddd6c9; --grey:#6b6b72; }
+/* ===== ТЕМЫ: НОЧЬ (кинозал) и ДЕНЬ ===== */
+#ta-site{
+  --bg:#0E0E10; --paper:#F5F1EA; --red:#E63B2E; --brass:#C9A96A;
+  --grey:#8a8a92; --card:#17171b; --line:#2a2a30;
+  --nav-bg:rgba(14,14,16,.85);
+  background:var(--bg); color:var(--paper);
+  transition:background .8s ease, color .8s ease;
+}
+#ta-site.day{
+  --bg:#F4EFE6; --paper:#1a1a1e; --red:#D6301F; --brass:#8a6d2f;
+  --grey:#6b6b72; --card:#ffffff; --line:#ddd4c2;
+  --nav-bg:rgba(244,239,230,.85);
+}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--paper)}
-a{color:inherit}
-section{padding:110px 6vw;max-width:1280px;margin:0 auto}
+body{background:#0E0E10}
+#ta-site a{color:inherit}
+#ta-site section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 
-#ta-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:14px 4vw;background:rgba(14,14,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+/* Тумблер ДЕНЬ/НОЧЬ: луна со звёздами <-> солнце с облаком */
+#theme-switch{position:relative;width:64px;height:32px;border-radius:20px;cursor:pointer;border:1px solid var(--line);background:linear-gradient(180deg,#0b1026,#1b2450);transition:background .8s ease;flex-shrink:0;padding:0}
+#ta-site.day #theme-switch{background:linear-gradient(180deg,#7ec8ff,#cfeaff)}
+#theme-switch .orb{position:absolute;top:3px;left:4px;width:24px;height:24px;border-radius:50%;background:#f8f4e6;box-shadow:0 0 8px 2px rgba(248,244,230,.55), inset -6px -4px 0 rgba(0,0,0,.18);transition:left .5s cubic-bezier(.4,1.4,.5,1), background .6s, box-shadow .6s}
+#ta-site.day #theme-switch .orb{left:34px;background:#ffd23f;box-shadow:0 0 12px 3px rgba(255,210,63,.75)}
+#theme-switch .stars{position:absolute;inset:0;font-size:8px;color:#fff;opacity:.9;transition:opacity .5s;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;letter-spacing:3px}
+#ta-site.day #theme-switch .stars{opacity:0}
+#theme-switch .clouds{position:absolute;inset:0;font-size:9px;opacity:0;transition:opacity .5s;display:flex;align-items:center;justify-content:flex-start;padding-left:8px}
+#ta-site.day #theme-switch .clouds{opacity:.95}
+
+/* NAV */
+#ta-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:14px 4vw;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:background .8s ease}
 #ta-logo{font-family:'Unbounded';font-weight:900;font-size:22px;cursor:pointer;color:var(--red);letter-spacing:2px}
 #ta-logo span{color:var(--paper)}
-#ta-nav .links{display:flex;gap:26px}
-#ta-nav .links a{text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.75}
+#ta-nav .links{display:flex;gap:22px}
+#ta-nav .links a{text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.75;transition:.25s}
 #ta-nav .links a:hover{opacity:1;color:var(--red)}
 #ta-timecode{font-size:12px;color:var(--brass)}
-#ta-theme{background:none;border:1px solid var(--line);color:var(--paper);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:12px}
 #ta-burger{display:none;background:none;border:none;color:var(--paper);font-size:26px;cursor:pointer}
 
+/* HERO */
 #ta-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding-top:140px}
-#ta-hero::before{content:"";position:absolute;inset:0;opacity:.06;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 3px 4px);animation:grain 8s steps(10) infinite}
+#ta-hero::before{content:"";position:absolute;inset:0;opacity:.06;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,#888 3px 4px);animation:grain 8s steps(10) infinite}
 @keyframes grain{0%{transform:translateY(0)}100%{transform:translateY(-40px)}}
 #ta-hero .scene-tag{color:var(--red);letter-spacing:5px;font-size:13px}
 #ta-hero h1{font-family:'Unbounded';font-size:clamp(42px,9vw,96px);font-weight:900;line-height:1.02;margin:18px 0}
@@ -99,6 +102,7 @@ section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 .reveal{opacity:0;transform:translateY(40px);transition:.8s cubic-bezier(.2,.8,.2,1)}
 .reveal.on{opacity:1;transform:none}
 
+/* Визитка */
 #card-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
 .flip{perspective:1600px}
 .flip-inner{position:relative;transition:transform .9s;transform-style:preserve-3d;min-height:520px}
@@ -113,6 +117,7 @@ section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 #card-photo:hover img{transform:scale(1.03)}
 #card-photo .tape{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-family:'JetBrains Mono';font-size:11px;padding:4px 10px;z-index:2}
 
+/* Видео */
 #reel-frame{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:#000;display:grid;place-items:center}
 .rutube-poster{position:absolute;inset:0;background:#000 center/cover no-repeat;display:grid;place-items:center}
 .rutube-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.45))}
@@ -120,10 +125,7 @@ section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 .play-big:hover{transform:scale(1.06)}
 .reel-actions{display:flex;gap:16px;margin-top:24px;flex-wrap:wrap}
 
-.chips,.tabs{display:flex;gap:12px;margin:28px 0;flex-wrap:wrap}
-.chip{border:1px solid var(--line);background:transparent;color:var(--paper);border-radius:30px;padding:9px 22px;cursor:pointer;font-size:13px;transition:.25s}
-.chip.on,.chip:hover{background:var(--red);border-color:var(--red);color:#fff}
-
+/* Фото */
 #film{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:26px}
 .frame{background:#000;padding:16px 8px;border-radius:6px;cursor:zoom-in;position:relative;transition:.3s}
 .frame:hover{transform:rotate(-1.2deg) scale(1.03)}
@@ -134,12 +136,23 @@ section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 #lightbox img{max-width:88vw;max-height:86vh;border:1px solid #333}
 #lightbox .cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--brass);font-family:'JetBrains Mono';font-size:12px}
 
+/* Фильмография */
+#filmography .cred-block{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 38px;margin-bottom:28px}
+#filmography h3{font-family:'Unbounded';font-size:16px;color:var(--brass);margin:0 0 20px}
+.cred{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:14.5px;line-height:1.55}
+.cred:last-child{border-bottom:none}
+.cred .y{font-family:'JetBrains Mono';color:var(--red);font-weight:700}
+.cred b{font-weight:600}
+.cred .dir{color:var(--grey);font-size:13px}
+
+/* Увлечения */
 #hobby-strip{display:flex;gap:26px;overflow-x:auto;padding:10px 4px 26px;scroll-snap-type:x mandatory}
 .polaroid{flex:0 0 250px;background:#fdfaf3;color:#111;padding:12px 12px 18px;scroll-snap-align:start;box-shadow:0 14px 34px rgba(0,0,0,.4);transition:.3s}
 .polaroid:hover{transform:scale(1.05)}
 .polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
 .polaroid p{font-family:'JetBrains Mono';font-size:12px;margin-top:12px;text-align:center}
 
+/* Юмор */
 #humor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .ng{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;position:relative}
 .ng .tag{position:absolute;top:-12px;left:20px;background:var(--red);color:#fff;font-family:'JetBrains Mono';font-size:11px;padding:4px 12px;letter-spacing:3px;animation:blink 1.4s infinite}
@@ -147,6 +160,7 @@ section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 .ng h4{font-family:'Unbounded';font-size:15px;margin:12px 0 10px}
 .ng p{font-size:14px;color:var(--grey)}
 
+/* Контакты */
 #contact{text-align:center}
 #email-big{font-family:'JetBrains Mono';font-size:clamp(18px,3.4vw,34px);color:var(--brass);cursor:pointer;display:inline-block;padding:18px 30px;border:1px dashed var(--brass);border-radius:14px;margin:30px 0 10px;word-break:break-all;transition:.3s}
 #email-big:hover{background:var(--brass);color:var(--bg)}
@@ -160,21 +174,20 @@ section{padding:110px 6vw;max-width:1280px;margin:0 auto}
 .soc-row a{text-decoration:none;border:1px solid var(--line);border-radius:30px;padding:10px 22px;font-size:13px;transition:.25s}
 .soc-row a:hover{border-color:var(--red);color:var(--red)}
 
-#s-credits ul{padding-left:20px}
-#s-credits li{margin-bottom:8px}
-
+/* Футер */
 footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono';letter-spacing:2px}
 #ta-count-digits span{display:inline-block;width:30px;height:44px;line-height:44px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:6px;font-family:'JetBrains Mono';font-size:22px;font-weight:700;color:var(--brass);margin:0 3px}
 
 .vhs{animation:vhs .12s infinite}
 @keyframes vhs{0%{filter:hue-rotate(0) contrast(1.4);transform:translateX(0)}25%{transform:translateX(4px) skewX(2deg)}50%{filter:hue-rotate(90deg) contrast(2)}75%{transform:translateX(-4px)}100%{filter:none}}
 
-@media(max-width:860px){
+@media(max-width:920px){
   #ta-nav .links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:24px 6vw;gap:18px;border-bottom:1px solid var(--line)}
   #ta-nav .links.open{display:flex}
   #ta-burger{display:block}
   #card-wrap{grid-template-columns:1fr}
   #ta-timecode{display:none}
+  .cred{grid-template-columns:1fr;gap:4px}
 }
 </style>
 
@@ -182,11 +195,14 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   <div id="ta-logo" title="Тройной клик — сюрприз">T<span>A</span></div>
   <div class="links" id="ta-links">
     <a href="#s-card">Визитка</a><a href="#s-reel">Видео</a><a href="#s-photo">Фото</a>
-    <a href="#s-hobby">Увлечения</a><a href="#s-humor">Юмор</a><a href="#s-contact">Написать</a>
+    <a href="#s-filmography">Фильмография</a><a href="#s-hobby">Увлечения</a>
+    <a href="#s-humor">Юмор</a><a href="#s-contact">Написать</a>
   </div>
   <div style="display:flex;align-items:center;gap:16px">
     <span id="ta-timecode" class="mono">00:00:00:00</span>
-    <button id="ta-theme">◐ Свет</button>
+    <button id="theme-switch" title="День / Ночь" aria-label="Переключить тему">
+      <span class="stars">✦ ✧</span><span class="clouds">☁</span><span class="orb"></span>
+    </button>
     <button id="ta-burger">☰</button>
   </div>
 </nav>
@@ -202,14 +218,13 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   <div class="scroll-hint mono">СКРОЛЛ — СЛЕДУЮЩАЯ СЦЕНА ↓</div>
 </section>
 
-<!-- ========== SCENE 01: ВИЗИТКА ========== -->
+<!-- SCENE 01: ВИЗИТКА -->
 <section id="s-card">
   <div class="scene-head reveal"><span class="num">SCENE 01</span><h2>Визитка</h2><span class="line"></span></div>
   <div id="card-wrap">
     <div class="reveal">
       <div id="card-photo">
         <span class="tape">HEADSHOT · 2025</span>
-        <!-- Главное фото: загрузите файл images/headshot.jpg в репозиторий -->
         <img id="main-headshot" src="images/headshot.jpg" alt="Тимур Абитов — актёр"
              onerror="this.src='https://images.unsplash.com/photo-1615109398623-88346a601842?w=900'">
       </div>
@@ -230,7 +245,7 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
           </div>
         </div>
         <div class="face back">
-          <h3></h3>
+          <h3>ПО-ЧЕЛОВЕЧЕСКИ</h3>
           <p style="font-size:15px">Привет! Я — Тимур. Играю в драме и комедии, снимаюсь в сериалах и кино; люблю импровизацию и стендап. Всегда готов к сложным образам и трюкам.</p>
           <h3 style="margin-top:18px">Образование</h3>
           <p style="font-size:14px">2016 — МИТРО, мастерская Сергея Коковкина<br>2024 — ВШСИ Райкина, мастерская Якова Ломкина<br>Доп.: 2022–2023 — ВШСИ Райкина (ДПО), мастерская С. Шенталинского; 2020 — TrueImprovMoscow</p>
@@ -244,10 +259,9 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   </div>
 </section>
 
-<!-- ========== SCENE 02: ВИДЕО (визитка Rutube + шоурил Яндекс.Диск) ========== -->
+<!-- SCENE 02: ВИДЕО -->
 <section id="s-reel">
   <div class="scene-head reveal"><span class="num">SCENE 02</span><h2>Видео</h2><span class="line"></span></div>
-
   <div id="reel-frame" class="reveal">
     <div id="rutube-poster" class="rutube-poster" style="background-image:url('images/headshot.jpg')">
       <div class="rutube-overlay"></div>
@@ -255,19 +269,16 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
     </div>
     <div id="rutube-iframe-wrap" style="width:100%;height:100%;display:none;"></div>
   </div>
-
   <div class="reel-actions reveal">
     <a class="ta-btn red" id="yandex-showreel" href="https://disk.yandex.ru/i/PN_pvcHpA499pQ" target="_blank" rel="noopener">🎬 Шоурил (откроется на Яндекс.Диске)</a>
     <a class="ta-btn ghost" href="https://rutube.ru/channel/14942278/" target="_blank" rel="noopener">▶ Все видео на Rutube-канале</a>
   </div>
 </section>
 
-<!-- ========== SCENE 03: ФОТО ========== -->
+<!-- SCENE 03: ФОТО -->
 <section id="s-photo">
   <div class="scene-head reveal"><span class="num">SCENE 03</span><h2>Фото</h2><span class="line"></span></div>
   <div id="film" class="reveal">
-    <!-- Галерея: загрузите фото в папку images/ с именами photo-01.jpg … photo-12.jpg.
-         Если какого-то файла нет — его рамка скроется автоматически. -->
     <div class="frame" data-cap="Портфолио · 01"><img src="images/photo-01.jpg" alt="" onerror="this.closest('.frame').style.display='none'"><span class="fnum mono">01A</span></div>
     <div class="frame" data-cap="Портфолио · 02"><img src="images/photo-02.jpg" alt="" onerror="this.closest('.frame').style.display='none'"><span class="fnum mono">02A</span></div>
     <div class="frame" data-cap="Портфолио · 03"><img src="images/photo-03.jpg" alt="" onerror="this.closest('.frame').style.display='none'"><span class="fnum mono">03A</span></div>
@@ -284,9 +295,43 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
 </section>
 <div id="lightbox"><img src="" alt=""><div class="cap mono"></div></div>
 
-<!-- ========== SCENE 04: УВЛЕЧЕНИЯ ========== -->
+<!-- SCENE 04: ФИЛЬМОГРАФИЯ -->
+<section id="s-filmography">
+  <div class="scene-head reveal"><span class="num">SCENE 04</span><h2>Фильмография</h2><span class="line"></span></div>
+  <div id="filmography">
+    <div class="cred-block reveal">
+      <h3>🎬 КИНО И СЕРИАЛЫ</h3>
+      <div class="cred"><span class="y">2026</span><span><b>«Склиф»</b> (сериал, в производстве) — Дмитрий <span class="dir">· реж. М. Агранович</span></span></div>
+      <div class="cred"><span class="y">2026</span><span><b>«Удар»</b> (сериал, в производстве) — продажный рефери <span class="dir">· реж. М. Кабанов, С. Терещук</span></span></div>
+      <div class="cred"><span class="y">2025</span><span><b>«Кузнецовы ТВ»</b> (сериал) — полицейский <span class="dir">· реж. К. Васильев</span></span></div>
+      <div class="cred"><span class="y">2025</span><span><b>«Сеструха»</b> (сериал, 3 сезон) — Дэнчик <span class="dir">· реж. Л. Тележинский</span></span></div>
+      <div class="cred"><span class="y">2025</span><span><b>«Патриот»</b> (сериал, 4 сезон) — мужик <span class="dir">· реж. Н. Бурлак</span></span></div>
+      <div class="cred"><span class="y">2025</span><span><b>«Баранкины и камни силы»</b> (х/ф) — Мурат <span class="dir">· реж. М. Поляков</span></span></div>
+      <div class="cred"><span class="y">2024</span><span><b>«Ландыши»</b> (сериал) — следователь <span class="dir">· реж. А. Карпиловский</span></span></div>
+      <div class="cred"><span class="y">2023</span><span><b>«Универ. 13 лет спустя»</b> (сериал) — следователь <span class="dir">· реж. С. Литовчин</span></span></div>
+      <div class="cred"><span class="y">2023</span><span><b>«Сеструха»</b> (сериал, 2 сезон) — Дэнчик, шеф-повар <span class="dir">· реж. А. Потапов</span></span></div>
+      <div class="cred"><span class="y">2023</span><span><b>«Орлинская»</b> (сериал) — Милашко</span></div>
+      <div class="cred"><span class="y">2023</span><span><b>«СуперИвановы»</b> (сериал) — Кирилл <span class="dir">· реж. Ю. Осипов</span></span></div>
+      <div class="cred"><span class="y">2017</span><span><b>«Лекарство от страха»</b> (к/м) — врач-психолог; отец главного героя (2 роли) <span class="dir">· реж. О. Дрокина</span></span></div>
+    </div>
+    <div class="cred-block reveal">
+      <h3>🎭 ТЕАТР</h3>
+      <div class="cred"><span class="y">2024</span><span><b>«Всегда рядом»</b> — Леонид <span class="dir">· реж. Яна Коваленко (куратор — К. А. Райкин) · Учебный театр ВШСИ</span></span></div>
+      <div class="cred"><span class="y">2023</span><span><b>«Два медведя»</b> — Лука <span class="dir">· реж. Яна Коваленко (куратор — К. А. Райкин) · Учебный театр ВШСИ</span></span></div>
+      <div class="cred"><span class="y">2023</span><span><b>«Зайцы»</b> — дедушка-заяц <span class="dir">· реж. Т. Корнеева · Театр Андрея Фартушного</span></span></div>
+      <div class="cred"><span class="y">2021</span><span><b>«Playback»</b> — актёр-импровизатор <span class="dir">· реж. А. Богачук · Мосспектакль</span></span></div>
+      <div class="cred"><span class="y">2017</span><span><b>«Новогодние приключения Троллей»</b> — Кощей Бессмертный <span class="dir">· реж. Л. Пономаренко · TERRRA-SHOW</span></span></div>
+      <div class="cred"><span class="y">2017</span><span><b>«Флирт»</b> — помещик <span class="dir">· реж. И. Якубовская · Антреприза</span></span></div>
+      <div class="cred"><span class="y">2016</span><span><b>«Скамейка»</b> — Он <span class="dir">· реж. М. Микрюков · Антреприза</span></span></div>
+      <div class="cred"><span class="y">2016</span><span><b>«Ёлки-метёлки»</b> — Дармоед <span class="dir">· реж. И. Якубовская · Антреприза</span></span></div>
+      <div class="cred"><span class="y">2015</span><span><b>«Адрес для писем тот же»</b> — Сергей Паньков <span class="dir">· реж. М. Микрюков · Антреприза</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 05: УВЛЕЧЕНИЯ -->
 <section id="s-hobby">
-  <div class="scene-head reveal"><span class="num">SCENE 04</span><h2>Увлечения</h2><span class="line"></span></div>
+  <div class="scene-head reveal"><span class="num">SCENE 05</span><h2>Увлечения</h2><span class="line"></span></div>
   <div id="hobby-strip" class="reveal">
     <div class="polaroid"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500" alt=""><p>Бокс и кикбоксинг</p></div>
     <div class="polaroid"><img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?w=500" alt=""><p>Стендап и импровизация</p></div>
@@ -296,9 +341,9 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   </div>
 </section>
 
-<!-- ========== SCENE 05: ЮМОР ========== -->
+<!-- SCENE 06: ЮМОР -->
 <section id="s-humor">
-  <div class="scene-head reveal"><span class="num">SCENE 05</span><h2>Юмор · Дубль 2</h2><span class="line"></span></div>
+  <div class="scene-head reveal"><span class="num">SCENE 06</span><h2>Юмор · Дубль 2</h2><span class="line"></span></div>
   <div id="humor-grid" class="reveal">
     <div class="ng"><span class="tag">NG TAKE 07</span><h4>«Реплика одна — дублей двенадцать»</h4><p>История о том, как одно слово «здравствуйте» я умудрился произнести неправильно 11 раз подряд.</p></div>
     <div class="ng"><span class="tag">NG TAKE 13</span><h4>«Драматическая пауза»</h4><p>Держал паузу так убедительно, что группа решила — я забыл текст. Я и правда забыл. Но пауза получилась отличная.</p></div>
@@ -306,9 +351,9 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   </div>
 </section>
 
-<!-- ========== SCENE 06: НАПИСАТЬ ========== -->
+<!-- SCENE 07: НАПИСАТЬ -->
 <section id="s-contact" style="max-width:900px">
-  <div class="scene-head reveal"><span class="num">SCENE 06</span><h2>Написать Тимуру</h2><span class="line"></span></div>
+  <div class="scene-head reveal"><span class="num">SCENE 07</span><h2>Написать Тимуру</h2><span class="line"></span></div>
   <div id="contact" class="reveal">
     <p style="color:var(--grey)">Кастинг, съёмки, реклама или просто привет:</p>
     <div id="email-big" title="Нажмите — почта скопируется">✉ …</div>
@@ -328,40 +373,6 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
     </form>
 
     <div class="soc-row" id="soc-row"></div>
-  </div>
-</section>
-
-<!-- ========== CREDITS ========== -->
-<section id="s-credits">
-  <div class="scene-head reveal"><span class="num">CREDITS</span><h2>Фильмография и театр</h2><span class="line"></span></div>
-  <div class="reveal" style="font-size:15px;line-height:1.6">
-    <h3 style="font-family:'Unbounded';font-size:16px;color:var(--brass)">Кино и сериалы</h3>
-    <ul>
-      <li>2026 (в производстве) — сериал «Склиф». Роль: Дмитрий. Режиссёр: М. Агранович</li>
-      <li>2026 (в производстве) — сериал «Удар». Роль: продажный рефери. Режиссёры: М. Кабанов, С. Терещук</li>
-      <li>2025 — сериал «Кузнецовы ТВ». Роль: полицейский. Режиссёр: К. Васильев</li>
-      <li>2025 — сериал «Сеструха» (3 сезон). Роль: Дэнчик. Режиссёр: Л. Тележинский</li>
-      <li>2025 — сериал «Патриот» (4 сезон). Роль: мужик. Режиссёр: Н. Бурлак</li>
-      <li>2025 — х/ф «Баранкины и камни силы». Роль: Мурат. Режиссёр: М. Поляков</li>
-      <li>2024 — сериал «Ландыши». Роль: следователь. Режиссёр: А. Карпиловский</li>
-      <li>2023 — сериал «Универ. 13 лет спустя». Роль: следователь. Режиссёр: С. Литовчин</li>
-      <li>2023 — сериал «Сеструха» (2 сезон). Роль: Дэнчик (шеф-повар). Режиссёр: А. Потапов</li>
-      <li>2023 — сериал «Орлинская». Роль: Милашко</li>
-      <li>2023 — сериал «СуперИвановы». Роль: Кирилл. Режиссёр: Ю. Осипов</li>
-      <li>2017 — к/м «Лекарство от страха». Роли: врач-психолог; отец главного героя. Режиссёр: О. Дрокина</li>
-    </ul>
-    <h3 style="font-family:'Unbounded';font-size:16px;color:var(--brass);margin-top:24px">Театр</h3>
-    <ul>
-      <li>2024 — «Всегда рядом» — Леонид. Реж.: Яна Коваленко (куратор — К. А. Райкин). Учебный театр ВШСИ</li>
-      <li>2023 — «Два медведя» — Лука. Реж.: Яна Коваленко (куратор — К. А. Райкин). Учебный театр ВШСИ</li>
-      <li>2023 — «Зайцы» — дедушка-заяц. Реж.: Т. Корнеева. Театр Андрея Фартушного</li>
-      <li>2021 — «Playback» — актёр-импровизатор. Реж.: А. Богачук. Мосспектакль</li>
-      <li>2017 — «Новогодние приключения Троллей» — Кощей Бессмертный. Реж.: Л. Пономаренко. TERRRA-SHOW</li>
-      <li>2017 — «Флирт» — помещик. Реж.: И. Якубовская. Антреприза</li>
-      <li>2016 — «Скамейка» — Он. Реж.: М. Микрюков. Антреприза</li>
-      <li>2016 — «Ёлки-метёлки» — Дармоед. Реж.: И. Якубовская. Антреприза</li>
-      <li>2015 — «Адрес для писем тот же» — Сергей Паньков. Реж.: М. Микрюков. Антреприза</li>
-    </ul>
   </div>
 </section>
 
@@ -385,6 +396,20 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   $('#ta-year').textContent = new Date().getFullYear();
   if(C.showreelYandexURL) $('#yandex-showreel').href = C.showreelYandexURL;
 
+  /* ДЕНЬ/НОЧЬ: запоминает выбор; при первом входе — авто по времени суток */
+  const site = $('#ta-site'), sw = $('#theme-switch');
+  const saved = localStorage.getItem('ta_theme');
+  if(saved === 'day') site.classList.add('day');
+  else if(!saved){
+    const h = new Date().getHours();
+    if(h >= 7 && h < 20) site.classList.add('day');
+  }
+  sw.onclick = ()=>{
+    site.classList.toggle('day');
+    localStorage.setItem('ta_theme', site.classList.contains('day') ? 'day' : 'night');
+  };
+
+  /* таймкод по скроллу */
   const tc = $('#ta-timecode');
   addEventListener('scroll', ()=>{
     const p = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
@@ -393,11 +418,13 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
     tc.textContent = `00:${String(Math.floor(total/60)).padStart(2,'0')}:${String(total%60).padStart(2,'0')}:${f}`;
   }, {passive:true});
 
+  /* появление секций */
   const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); }),{threshold:.12});
   $$('.reveal').forEach(el=>io.observe(el));
 
   $('#flip-btn').onclick = ()=> $('#flip').classList.toggle('flipped');
 
+  /* лайтбокс */
   const lb = $('#lightbox');
   $$('#film .frame').forEach(f=>f.onclick=()=>{
     lb.querySelector('img').src = f.querySelector('img').src;
@@ -406,31 +433,26 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
   });
   lb.onclick = ()=> lb.classList.remove('open');
 
+  /* почта — копирование */
   $('#email-big').onclick = ()=> navigator.clipboard.writeText(C.email||'').then(()=>{ $('#copied').classList.add('show'); setTimeout(()=>$('#copied').classList.remove('show'),2200); });
 
-  $('#ta-theme').onclick = ()=> $('#ta-site').classList.toggle('light');
+  /* бургер и плавные якоря */
   $('#ta-burger').onclick = ()=> $('#ta-links').classList.toggle('open');
   $$('#ta-links a').forEach(a=>a.onclick=()=>$('#ta-links').classList.remove('open'));
   $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{ const el=document.querySelector(a.getAttribute('href')); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }}));
 
+  /* пасхалка VHS */
   let clicks=0, t;
   $('#ta-logo').onclick = ()=>{ clicks++; clearTimeout(t); t=setTimeout(()=>clicks=0,600); if(clicks>=3){ document.body.classList.add('vhs'); setTimeout(()=>document.body.classList.remove('vhs'),1800); clicks=0; } };
 
-  /* ===== RUTUBE: постер + ручной запуск ===== */
+  /* Rutube: постер + ручной запуск */
   const posterEl = $('#rutube-poster'), playBtn = $('#rutube-play'), iframeWrap = $('#rutube-iframe-wrap');
-
-  async function fetchRutubeThumbnail(id){
-    try {
-      const res = await fetch('https://rutube.ru/api/oembed?url=' + encodeURIComponent('https://rutube.ru/video/' + id + '/'));
-      if(res.ok){ const j = await res.json(); return j.thumbnail_url || j.thumbnail || null; }
-    } catch(e){}
-    return null;
-  }
   (async ()=>{
-    const th = await fetchRutubeThumbnail(C.showreelRutubeID);
-    if(th) posterEl.style.backgroundImage = `url('${th}')`;
+    try {
+      const res = await fetch('https://rutube.ru/api/oembed?url=' + encodeURIComponent('https://rutube.ru/video/' + C.showreelRutubeID + '/'));
+      if(res.ok){ const j = await res.json(); const th = j.thumbnail_url || j.thumbnail; if(th) posterEl.style.backgroundImage = `url('${th}')`; }
+    } catch(e){}
   })();
-
   playBtn.onclick = ()=>{
     const id = (C.showreelRutubeID||'').trim();
     if(!id){ alert('Видео не задано — вставьте showreelRutubeID в конфиг.'); return; }
@@ -445,28 +467,27 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
     posterEl.style.display='none';
   };
 
-  /* ===== Форма: Formspree или mailto ===== */
+  /* Formspree: письма напрямую, без почтового клиента */
   $('#ta-form').onsubmit = async e=>{
     e.preventDefault();
     const btn = $('#f-send'), st = $('#f-status'), form = e.target;
-    if(!C.formspreeID || !C.formspreeID.trim()){
-      const s = encodeURIComponent(`[Сайт · ${$('#f-topic').value}] от ${$('#f-name').value}`);
-      const b = encodeURIComponent($('#f-msg').value + "\n\nОт: " + $('#f-email').value);
-      location.href = `mailto:${C.email}?subject=${s}&body=${b}`;
-      return;
-    }
     btn.disabled=true; btn.textContent='⏳ Отправка…'; st.textContent='';
     try{
       const res = await fetch('https://formspree.io/f/' + C.formspreeID, { method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form) });
-      if(res.ok){ form.reset(); btn.textContent='✓ Отправлено!'; st.style.color='var(--brass)'; st.textContent='✓ СООБЩЕНИЕ ДОСТАВЛЕНО'; setTimeout(()=>{ btn.disabled=false; btn.textContent='Отправить сообщение →'; st.textContent=''; },4000); }
-      else throw new Error();
+      if(res.ok){
+        form.reset();
+        btn.textContent='✓ Отправлено!';
+        st.style.color='var(--brass)';
+        st.textContent='✓ СООБЩЕНИЕ ДОСТАВЛЕНО. ТИМУР ОТВЕТИТ НА ВАШ E-MAIL';
+        setTimeout(()=>{ btn.disabled=false; btn.textContent='Отправить сообщение →'; st.textContent=''; },5000);
+      } else throw new Error();
     } catch(err){
       btn.disabled=false; btn.textContent='Отправить сообщение →'; st.style.color='var(--red)';
-      st.innerHTML = `✗ ОШИБКА. Напишите напрямую: <a href="mailto:${C.email}" style="color:var(--red)">${C.email}</a>`;
+      st.innerHTML = `✗ ОШИБКА ОТПРАВКИ. Напишите напрямую: <a href="mailto:${C.email}" style="color:var(--red)">${C.email}</a>`;
     }
   };
 
-  /* ===== Счётчик посещений ===== */
+  /* Счётчик посещений */
   (async function(){
     const box = $('#ta-counter'); if(!box) return;
     if(C.showCounter === false){ box.style.display='none'; return; }
@@ -490,6 +511,9 @@ footer.ta{text-align:center;padding:50px 20px;color:var(--grey);font-size:12px;b
 })();
 </script>
 
+</div>
+</body>
+</html>
 </div>
 </body>
 </html>
